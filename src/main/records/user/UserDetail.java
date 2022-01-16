@@ -19,6 +19,7 @@ public final class UserDetail implements Serializable {
     public UserDetail(String username, String password) {
         this.username = username;
         this.password = password;
+        this.passwordStores = new ArrayList<>();
     }
 
     public UserDetail(String username, String password, String name, String phoneNumber, String email) {
@@ -27,6 +28,7 @@ public final class UserDetail implements Serializable {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
+        this.passwordStores = new ArrayList<>();
     }
 
     public String getName() {
