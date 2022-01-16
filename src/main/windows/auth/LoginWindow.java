@@ -1,9 +1,11 @@
-package main.windows;
+package main.windows.auth;
 
 
 import main.exceptions.UserNotFoundException;
+import main.records.user.UserDetail;
 import main.service.AuthenticationService;
 import main.service.ServiceManager;
+import main.windows.MainWindow;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -49,8 +51,8 @@ public class LoginWindow extends JFrame implements ActionListener {
         add(this.mainPanel, BorderLayout.CENTER);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.initComponents();
-        this.setSize(420,200);
-
+        this.setSize(420, 200);
+        setLocationRelativeTo(null);
 
     }
 
@@ -83,7 +85,7 @@ public class LoginWindow extends JFrame implements ActionListener {
     /**
      * Add Component To frame content pane
      *
-     * @param component
+     * @param component - component to add
      */
     private void addComponent(JComponent component) {
         this.mainPanel.add(component);
@@ -98,9 +100,23 @@ public class LoginWindow extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) throws UserNotFoundException {
         try {
-            AuthenticationService service = (AuthenticationService) ServiceManager.getService(AuthenticationService.class);
-            boolean loginResult = service.login(this.usernameField.getText(), new String(this.passwordField.getPassword()));
-            System.out.println(loginResult);
+            AuthenticationService service = ServiceManager.getService(AuthenticationService.class);
+            UserDetail loginResult;
+            try{
+                loginResult = service.login(this.usernameField.getText(), new String(this.passwordField.getPassword()));
+            }catch(UserNotFoundException ex){
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this,"کاربری با این نام کاربر وجود ندارد");
+                return;
+            }
+            if (loginResult != null) {
+                MainWindow mainWindow = new MainWindow();
+                setDefaultCloseOperation(HIDE_ON_CLOSE);
+                setVisible(false);
+                mainWindow.setVisible(true);
+            }else{
+                JOptionPane.showMessageDialog(this,"رمزعبور اشتباه است");
+            }
         } catch (Exception exception) {
             exception.printStackTrace();
         }

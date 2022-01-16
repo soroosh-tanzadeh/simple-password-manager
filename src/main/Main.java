@@ -2,8 +2,8 @@ package main;
 
 import main.service.AuthenticationService;
 import main.service.ServiceManager;
-import main.windows.LoginWindow;
-import main.windows.SignupWindow;
+import main.windows.auth.LoginWindow;
+import main.windows.auth.SignupWindow;
 
 public class Main {
 

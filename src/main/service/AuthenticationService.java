@@ -12,15 +12,12 @@ import java.security.NoSuchAlgorithmException;
 @Service
 public class AuthenticationService implements ApplicationService {
 
+    public static UserDetail currentUser;
     private DatabaseInterface databaseInterface;
 
     @Inject
     public AuthenticationService(DatabaseInterface databaseInterface) {
         this.databaseInterface = databaseInterface;
-    }
-
-    public boolean anyUserExists(){
-        return this.databaseInterface.anyUserExists();
     }
 
     public static String hashPassword(String password) {
@@ -45,8 +42,17 @@ public class AuthenticationService implements ApplicationService {
         return null;
     }
 
-    public boolean login(String username, String password) {
+    public boolean anyUserExists() {
+        return this.databaseInterface.anyUserExists();
+    }
+
+    public UserDetail login(String username, String password) {
         UserDetail userDetail = this.databaseInterface.findByUsername(username).orElseThrow(UserNotFoundException::new);
-        return userDetail.getPassword().equals(this.hashPassword(password));
+        boolean passwordCheck = userDetail.getPassword().equals(hashPassword(password));
+        if (passwordCheck) {
+            AuthenticationService.currentUser = userDetail;
+            return userDetail;
+        }
+        return null;
     }
 }

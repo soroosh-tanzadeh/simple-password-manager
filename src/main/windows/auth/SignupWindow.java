@@ -1,7 +1,9 @@
-package main.windows;
+package main.windows.auth;
 
 import main.service.ServiceManager;
 import main.service.dataAccess.database.FileDatabaseService;
+import main.windows.BaseWindow;
+import main.windows.auth.LoginWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,6 +39,17 @@ public class SignupWindow extends BaseWindow implements ActionListener {
         setLocationRelativeTo(null);
     }
 
+    public SignupWindow(boolean exitOnClose) {
+        super(new GridLayout(0, 2, 12, 12));
+        setTitle("مدیریت رمزعبور - ایجاد کاربر");
+
+        this.initComponents();
+        this.setSize(420, 500);
+        if(exitOnClose) {
+            setDefaultCloseOperation(EXIT_ON_CLOSE);
+        }
+        setLocationRelativeTo(null);
+    }
     /**
      * Setup Components
      */
@@ -96,7 +109,7 @@ public class SignupWindow extends BaseWindow implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
-            FileDatabaseService databaseService = (FileDatabaseService) ServiceManager.getService(FileDatabaseService.class);
+            FileDatabaseService databaseService = ServiceManager.getService(FileDatabaseService.class);
             if(this.usernameField.getText().isEmpty() || new String(this.passwordField.getPassword()).isEmpty() || this.nameField.getText().isEmpty() || this.phoneField.getText().isEmpty() || this.emailField.getText().isEmpty()){
                 JOptionPane.showInternalMessageDialog(null,"تمامی فیلد‌ها اجباری است");
                 return;
