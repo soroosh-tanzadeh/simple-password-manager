@@ -18,7 +18,7 @@ public class PasswordStore implements Serializable {
         this.username = username;
     }
 
-    public PasswordStore(String password, String title, String username, String description, String website) {
+    public PasswordStore(String title, String username, String password, String website, String description) {
         this.id = UUID.randomUUID().toString();
         this.password = password;
         this.title = title;

@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class Database implements Serializable {
     private Set<UserDetail> users;
-
+    private UserDetail currentUser;
     public Database(Set<UserDetail> users) {
         this.users = users;
     }
@@ -22,5 +22,13 @@ public class Database implements Serializable {
 
     public boolean remove(UserDetail userDetail) {
         return users.remove(userDetail);
+    }
+
+    public UserDetail getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(UserDetail currentUser) {
+        this.currentUser = currentUser;
     }
 }

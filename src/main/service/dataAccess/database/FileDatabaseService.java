@@ -32,6 +32,13 @@ public class FileDatabaseService implements DatabaseInterface {
         outputStream.writeObject(this.database);
     }
 
+    public void save() {
+        try {
+            this.writeDatabase(new File("database.db"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public boolean createUser(String username, String password, String name, String phoneNumber, String email) {
@@ -45,9 +52,20 @@ public class FileDatabaseService implements DatabaseInterface {
         return addResult;
     }
 
+
     @Override
     public boolean anyUserExists() {
         return this.database.getUsers().size() > 0;
+    }
+
+    @Override
+    public UserDetail getCurrentUser() {
+        return this.database.getCurrentUser();
+    }
+
+    @Override
+    public void setCurrentUser(UserDetail user) {
+        this.database.setCurrentUser(user);
     }
 
     @Override

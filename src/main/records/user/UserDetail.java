@@ -73,9 +73,11 @@ public final class UserDetail implements Serializable {
 
     public void removePassword(String id) {
         this.passwordStores = (ArrayList<PasswordStore>) passwordStores.stream()
-                .filter(passwordStore -> passwordStore.getId().equals(id))
+                .filter(passwordStore -> !passwordStore.getId().equals(id))
                 .collect(Collectors.toList());
     }
+
+
 
 
     @Override
