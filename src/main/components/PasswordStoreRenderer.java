@@ -5,7 +5,20 @@ import main.records.secure.PasswordStore;
 import javax.swing.*;
 import java.awt.*;
 
-public class PasswordStoreRenderer extends JLabel implements ListCellRenderer<PasswordStore>  {
+public class PasswordStoreRenderer extends JPanel implements ListCellRenderer<PasswordStore> {
+    private JLabel label;
+
+    /**
+     * Creates a new <code>JPanel</code> with a double buffer
+     * and a flow layout.
+     */
+    public PasswordStoreRenderer() {
+        label = new JLabel();
+        label.setHorizontalAlignment(SwingConstants.LEFT);
+        setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        add(label);
+    }
+
     /**
      * Return a component that has been configured to display the specified
      * value. That component's <code>paint</code> method is then called to
@@ -26,11 +39,10 @@ public class PasswordStoreRenderer extends JLabel implements ListCellRenderer<Pa
      */
     @Override
     public Component getListCellRendererComponent(JList<? extends PasswordStore> list, PasswordStore value, int index, boolean isSelected, boolean cellHasFocus) {
-        setText(value.getTitle());
+        label.setText(value.getTitle());
+        label.setForeground(Color.BLACK);
 
         Color background;
-        Color foreground;
-
         // check if this cell represents the current DnD drop location
         JList.DropLocation dropLocation = list.getDropLocation();
         if (dropLocation != null
@@ -38,20 +50,17 @@ public class PasswordStoreRenderer extends JLabel implements ListCellRenderer<Pa
                 && dropLocation.getIndex() == index) {
 
             background = Color.BLUE;
-            foreground = Color.WHITE;
 
             // check if this cell is selected
         } else if (isSelected) {
             background = Color.CYAN;
-            foreground = Color.WHITE;
             // unselected, and not the DnD drop location
         } else {
             background = Color.WHITE;
-            foreground = Color.BLACK;
-        };
+        }
+        ;
 
         setBackground(background);
-        setForeground(foreground);
 
         return this;
     }

@@ -31,7 +31,7 @@ public class BaseWindow extends JFrame {
         add(this.mainPanel, BorderLayout.CENTER);
     }
 
-    public BaseWindow(GridLayout layout) {
+    public BaseWindow(LayoutManager layout) {
         try {
             String os = System.getProperty("os.name");
             if (os.toLowerCase().contains("windows")) {
