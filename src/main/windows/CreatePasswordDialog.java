@@ -13,7 +13,6 @@ import java.util.UUID;
 
 public class CreatePasswordDialog extends JDialog implements ActionListener {
 
-
     private final JPanel mainPanel;
     ArrayList<ActionListener> actionListeners = new ArrayList<>();
     private JTextField titleField;
@@ -101,7 +100,7 @@ public class CreatePasswordDialog extends JDialog implements ActionListener {
     /**
      * Add Component To frame content pane
      *
-     * @param components
+     * @param components list of components to add
      */
     protected void addComponent(JComponent... components) {
         for (JComponent component : components) {
@@ -129,9 +128,7 @@ public class CreatePasswordDialog extends JDialog implements ActionListener {
                     new String(this.passwordField.getPassword()),
                     this.websiteField.getText(),
                     this.descriptionField.getText());
-            this.actionListeners.forEach(actionListener -> {
-                actionListener.actionPerformed(new ActionEvent(this, UUID.randomUUID().hashCode(), "password-add"));
-            });
+            this.actionListeners.forEach(actionListener -> actionListener.actionPerformed(new ActionEvent(this, UUID.randomUUID().hashCode(), "password-add")));
         } catch (Exception ex) {
             ex.printStackTrace();
         }

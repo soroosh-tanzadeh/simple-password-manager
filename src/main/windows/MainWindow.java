@@ -10,6 +10,8 @@ import main.windows.auth.SignupWindow;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 public class MainWindow extends BaseWindow {
@@ -79,9 +81,18 @@ public class MainWindow extends BaseWindow {
 
         this.passwordStores = new JList<>();
         this.passwordStores.setBackground(Color.white);
+        this.passwordStores.addMouseListener(new MouseAdapter(){
+            public void mouseClicked(MouseEvent e){
+                if(e.getClickCount() == 2){
+                    PasswordStore value = passwordStores.getSelectedValue();
+                    ShowPasswordInfo passwordInfo = new ShowPasswordInfo(MainWindow.this,value);
+                    passwordInfo.setVisible(true);
+                }
+            }
+        });
         DefaultListModel<PasswordStore> passwordStoreListModel = new DefaultListModel<>();
         passwordStoreListModel.addAll(AuthenticationService.currentUser.getPasswordStores());
-        this.passwordStores.setCellRenderer(new PasswordStoreRenderer());
+        this.passwordStores.setCellRenderer(new PasswordStoreRenderer(this));
         this.passwordStores.setModel(passwordStoreListModel);
         this.mainPanel.add(this.passwordStores, BorderLayout.CENTER);
     }
@@ -93,17 +104,25 @@ public class MainWindow extends BaseWindow {
         JMenuBar menuBar = new JMenuBar();
         JMenu usersMenu = new JMenu("کاربران");
         JMenuItem createUserItem = new JMenuItem("ایجاد کاربر");
+        JMenuItem logoutItem = new JMenuItem("خروج");
         createUserItem.addActionListener(e -> {
             SignupWindow frame = new SignupWindow(false);
             frame.setVisible(true);
         });
+        logoutItem.addActionListener(e -> {
+            try {
+                AuthenticationService service = ServiceManager.getService(AuthenticationService.class);
+                service.logout();
+                System.exit(0);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
         usersMenu.add(createUserItem);
-
+        usersMenu.add(logoutItem);
 
         JMenu passwordsMenu = new JMenu("رمزعبور");
         JMenuItem createPasswordItem = new JMenuItem("رمزعبور  جدید");
-        JMenuItem backupPasswords = new JMenuItem("گرفتن پشتیبانی");
-        JMenuItem restorePasswords = new JMenuItem("بازیابی اطلاعات");
 
         createPasswordItem.addActionListener(e -> {
             CreatePasswordDialog dialog = new CreatePasswordDialog(this);
@@ -115,8 +134,6 @@ public class MainWindow extends BaseWindow {
         });
 
         passwordsMenu.add(createPasswordItem);
-        passwordsMenu.add(backupPasswords);
-        passwordsMenu.add(restorePasswords);
 
 
         menuBar.add(usersMenu);
