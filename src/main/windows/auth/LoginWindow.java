@@ -18,7 +18,7 @@ public class LoginWindow extends JFrame implements ActionListener {
     private JTextField usernameField;
     private JLabel passwordLabel;
     private JPasswordField passwordField;
-    private JPanel mainPanel;
+    private final JPanel mainPanel;
     private JButton loginButton;
 
 
@@ -102,11 +102,11 @@ public class LoginWindow extends JFrame implements ActionListener {
         try {
             AuthenticationService service = ServiceManager.getService(AuthenticationService.class);
             UserDetail loginResult;
-            try{
+            try {
                 loginResult = service.login(this.usernameField.getText(), new String(this.passwordField.getPassword()));
-            }catch(UserNotFoundException ex){
+            } catch (UserNotFoundException ex) {
                 ex.printStackTrace();
-                JOptionPane.showMessageDialog(this,"کاربری با این نام کاربر وجود ندارد");
+                JOptionPane.showMessageDialog(this, "کاربری با این نام کاربر وجود ندارد");
                 return;
             }
             if (loginResult != null) {
@@ -114,8 +114,8 @@ public class LoginWindow extends JFrame implements ActionListener {
                 setDefaultCloseOperation(HIDE_ON_CLOSE);
                 setVisible(false);
                 mainWindow.setVisible(true);
-            }else{
-                JOptionPane.showMessageDialog(this,"رمزعبور اشتباه است");
+            } else {
+                JOptionPane.showMessageDialog(this, "رمزعبور اشتباه است");
             }
         } catch (Exception exception) {
             exception.printStackTrace();

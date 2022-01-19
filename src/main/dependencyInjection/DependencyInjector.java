@@ -3,7 +3,8 @@ package main.dependencyInjection;
 import main.dependencyInjection.module.IModule;
 
 public class DependencyInjector {
-    private DependencyInjector(){}
+    private DependencyInjector() {
+    }
 
     public static DependencyInjectorFramework getFramework(final IModule module) {
         module.configure();

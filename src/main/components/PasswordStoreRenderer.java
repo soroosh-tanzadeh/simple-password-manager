@@ -8,6 +8,7 @@ import java.awt.*;
 public class PasswordStoreRenderer extends JPanel implements ListCellRenderer<PasswordStore> {
 
     private final JLabel label;
+
     public PasswordStoreRenderer(JFrame frame) {
         label = new JLabel();
         label.setHorizontalAlignment(SwingConstants.LEFT);

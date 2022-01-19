@@ -23,7 +23,7 @@ public class UserDataAccessService implements ApplicationService {
     public void addPassword(String title, String username, String password, String website, String description) {
         UserDetail currentUser = this.databaseInterface.getCurrentUser();
         currentUser.addPassword(new PasswordStore(title, username, password, website, description));
-        this.databaseInterface.setCurrentUser(currentUser);
+        this.databaseInterface.updateUser(currentUser);
         this.databaseInterface.save();
         AuthenticationService.currentUser = currentUser;
     }
@@ -34,9 +34,10 @@ public class UserDataAccessService implements ApplicationService {
     }
 
     public void removePassword(String id) {
-        UserDetail currentUser = this.databaseInterface.getCurrentUser();
+        UserDetail currentUser = AuthenticationService.currentUser;
         currentUser.removePassword(id);
-        this.databaseInterface.setCurrentUser(currentUser);
+        System.out.println(currentUser.getPasswordStores());
+        this.databaseInterface.updateUser(currentUser);
         this.databaseInterface.save();
         AuthenticationService.currentUser = currentUser;
     }

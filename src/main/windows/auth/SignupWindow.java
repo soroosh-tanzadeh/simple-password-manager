@@ -3,7 +3,6 @@ package main.windows.auth;
 import main.service.ServiceManager;
 import main.service.dataAccess.database.FileDatabaseService;
 import main.windows.BaseWindow;
-import main.windows.auth.LoginWindow;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,11 +44,12 @@ public class SignupWindow extends BaseWindow implements ActionListener {
 
         this.initComponents();
         this.setSize(420, 500);
-        if(exitOnClose) {
+        if (exitOnClose) {
             setDefaultCloseOperation(EXIT_ON_CLOSE);
         }
         setLocationRelativeTo(null);
     }
+
     /**
      * Setup Components
      */
@@ -110,8 +110,8 @@ public class SignupWindow extends BaseWindow implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         try {
             FileDatabaseService databaseService = ServiceManager.getService(FileDatabaseService.class);
-            if(this.usernameField.getText().isEmpty() || new String(this.passwordField.getPassword()).isEmpty() || this.nameField.getText().isEmpty() || this.phoneField.getText().isEmpty() || this.emailField.getText().isEmpty()){
-                JOptionPane.showInternalMessageDialog(null,"تمامی فیلد‌ها اجباری است");
+            if (this.usernameField.getText().isEmpty() || new String(this.passwordField.getPassword()).isEmpty() || this.nameField.getText().isEmpty() || this.phoneField.getText().isEmpty() || this.emailField.getText().isEmpty()) {
+                JOptionPane.showInternalMessageDialog(null, "تمامی فیلد‌ها اجباری است");
                 return;
             }
 
@@ -126,7 +126,7 @@ public class SignupWindow extends BaseWindow implements ActionListener {
                 LoginWindow frame = new LoginWindow();
                 frame.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(this,"خطا در ایجاد کاربر جدید، لطفا مجدد تلاش کنید");
+                JOptionPane.showMessageDialog(this, "خطا در ایجاد کاربر جدید، لطفا مجدد تلاش کنید");
                 throw new Exception("Create User Failed");
             }
         } catch (Exception ex) {

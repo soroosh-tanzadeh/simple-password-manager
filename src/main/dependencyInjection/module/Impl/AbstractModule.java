@@ -9,7 +9,6 @@ import java.util.Map;
  * Abstract module to configure and retrieve proper dependency injection mapping.
  *
  * @author Soroosh
- *
  */
 public abstract class AbstractModule implements IModule {
 

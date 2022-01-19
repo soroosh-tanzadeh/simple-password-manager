@@ -19,8 +19,8 @@ public class ServiceManager extends AbstractModule {
         this.createMapping(DatabaseInterface.class, FileDatabaseService.class);
     }
 
-    private static DependencyInjectorFramework getFramework(){
-        if(framework == null){
+    private static DependencyInjectorFramework getFramework() {
+        if (framework == null) {
             framework = DependencyInjector.getFramework(new ServiceManager());
         }
         return framework;
@@ -29,5 +29,6 @@ public class ServiceManager extends AbstractModule {
     public static <T extends ApplicationService> T getService(Class<? extends ApplicationService> service) throws Exception {
         return (T) getFramework().inject(service);
     }
+
 
 }

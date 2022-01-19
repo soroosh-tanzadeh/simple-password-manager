@@ -12,15 +12,15 @@ public class Main {
         Thread applicationThread = new Thread(() -> {
             try {
                 AuthenticationService service = ServiceManager.getService(AuthenticationService.class);
-                if(service.anyUserExists()){
-                    if(AuthenticationService.currentUser != null){
+                if (service.anyUserExists()) {
+                    if (AuthenticationService.currentUser != null) {
                         MainWindow mainWindow = new MainWindow();
                         mainWindow.setVisible(true);
-                    }else{
+                    } else {
                         LoginWindow frame = new LoginWindow();
                         frame.setVisible(true);
                     }
-                }else{
+                } else {
                     SignupWindow frame = new SignupWindow();
                     frame.setVisible(true);
                 }

@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class BaseDialog extends JDialog{
+public class BaseDialog extends JDialog {
 
     private final JPanel mainPanel;
 
@@ -24,7 +24,7 @@ public class BaseDialog extends JDialog{
             System.out.println("Error setting the LAF..." + e);
         }
         this.mainPanel = new JPanel(layout);
-        this.mainPanel.setBorder(new EmptyBorder(16,16,16,16));
+        this.mainPanel.setBorder(new EmptyBorder(16, 16, 16, 16));
         this.mainPanel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         this.add(this.mainPanel);
     }

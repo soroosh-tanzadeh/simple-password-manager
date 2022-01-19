@@ -7,7 +7,8 @@ import java.util.Set;
 
 public class Database implements Serializable {
     private Set<UserDetail> users;
-    private UserDetail currentUser;
+    private String currentUser;
+
     public Database(Set<UserDetail> users) {
         this.users = users;
     }
@@ -20,15 +21,19 @@ public class Database implements Serializable {
         return users.add(userDetail);
     }
 
-    public boolean remove(UserDetail userDetail) {
-        return users.remove(userDetail);
+    public void updateUser(UserDetail user) {
+        this.users.remove(user);
+        this.users.add(user);
     }
 
     public UserDetail getCurrentUser() {
-        return currentUser;
+        return users.stream()
+                .filter(user -> user.getUsername().equals(currentUser)).
+                findAny()
+                .orElse(null);
     }
 
     public void setCurrentUser(UserDetail currentUser) {
-        this.currentUser = currentUser;
+        this.currentUser = currentUser != null ? currentUser.getUsername() : null;
     }
 }

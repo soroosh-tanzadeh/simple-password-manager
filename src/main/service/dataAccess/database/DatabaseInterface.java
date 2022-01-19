@@ -9,9 +9,15 @@ import java.util.Optional;
 @Service
 public interface DatabaseInterface extends ApplicationService {
     boolean createUser(String username, String password, String name, String phoneNumber, String email);
+
     boolean anyUserExists();
-    void setCurrentUser(UserDetail user);
+
     UserDetail getCurrentUser();
+
+    void setCurrentUser(UserDetail user);
+    void updateUser(UserDetail user);
+
     void save();
+
     Optional<UserDetail> findByUsername(String username);
 }

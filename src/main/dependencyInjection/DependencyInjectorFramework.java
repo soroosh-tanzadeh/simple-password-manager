@@ -1,17 +1,16 @@
 package main.dependencyInjection;
 
+import main.dependencyInjection.annotation.Inject;
+import main.dependencyInjection.module.IModule;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-
-import main.dependencyInjection.annotation.Inject;
-import main.dependencyInjection.module.IModule;
 
 /**
  * Own Dependency Injection framework, it uses reflection (Constructor, Field) to find the dependency and inject it.
  *
  * @author Soroosh
- *
  */
 public class DependencyInjectorFramework {
 
@@ -43,7 +42,7 @@ public class DependencyInjectorFramework {
     private Object injectFields(Class<?> classToInject) throws InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         Object o = classToInject.getConstructor().newInstance();
         for (Field field : classToInject.getDeclaredFields()) {
-            if(field.isAnnotationPresent(Inject.class)) {
+            if (field.isAnnotationPresent(Inject.class)) {
                 final Class<?> dependency = module.getMapping(field.getType());
                 field.setAccessible(true);
                 field.set(o, dependency.getConstructor().newInstance());

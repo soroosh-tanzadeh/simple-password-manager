@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class ShowPasswordInfo extends BaseDialog {
 
-    private PasswordStore password;
+    private final PasswordStore password;
 
     private JTextField usernameField;
     private JLabel usernameLabel;
@@ -42,19 +42,19 @@ public class ShowPasswordInfo extends BaseDialog {
         this.passwordField.setEditable(false);
 
         JPanel passwordPanel = new JPanel();
-        passwordPanel.setLayout(new BoxLayout(passwordPanel,BoxLayout.X_AXIS));
+        passwordPanel.setLayout(new BoxLayout(passwordPanel, BoxLayout.X_AXIS));
 
         JToggleButton showPasswordButton = new JToggleButton("نمایش");
         JButton copyPasswordButton = new JButton("کپی");
 
         showPasswordButton.addActionListener(e -> {
-           if(showPasswordButton.isSelected()){
-               this.passwordField.setEchoChar((char)0);
-               showPasswordButton.setText("عدم نمایش");
-           }else{
-               this.passwordField.setEchoChar('*');
-               showPasswordButton.setText("نمایش");
-           }
+            if (showPasswordButton.isSelected()) {
+                this.passwordField.setEchoChar((char) 0);
+                showPasswordButton.setText("عدم نمایش");
+            } else {
+                this.passwordField.setEchoChar('*');
+                showPasswordButton.setText("نمایش");
+            }
         });
         copyPasswordButton.addActionListener(e -> Toolkit.getDefaultToolkit().getSystemClipboard()
                 .setContents(new java.awt.datatransfer.StringSelection(this.password.getPassword()), null));

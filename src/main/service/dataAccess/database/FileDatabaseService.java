@@ -69,6 +69,11 @@ public class FileDatabaseService implements DatabaseInterface {
     }
 
     @Override
+    public void updateUser(UserDetail user) {
+        this.database.updateUser(user);
+    }
+
+    @Override
     public Optional<UserDetail> findByUsername(String username) {
         return this.database.getUsers().stream().filter(userDetail -> userDetail.getUsername().equals(username)).findFirst();
     }

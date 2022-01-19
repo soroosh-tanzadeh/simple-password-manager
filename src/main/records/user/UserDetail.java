@@ -5,7 +5,6 @@ import main.records.secure.PasswordStore;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public final class UserDetail implements Serializable {
     private final String username;
@@ -14,7 +13,7 @@ public final class UserDetail implements Serializable {
     private String phoneNumber;
     private String email;
 
-    private ArrayList<PasswordStore> passwordStores;
+    private final ArrayList<PasswordStore> passwordStores;
 
     public UserDetail(String username, String password) {
         this.username = username;
@@ -72,13 +71,8 @@ public final class UserDetail implements Serializable {
     }
 
     public void removePassword(String id) {
-        this.passwordStores = (ArrayList<PasswordStore>) passwordStores.stream()
-                .filter(passwordStore -> !passwordStore.getId().equals(id))
-                .collect(Collectors.toList());
+        this.passwordStores.removeIf(passwordStore -> passwordStore.getId().equals(id));
     }
-
-
-
 
     @Override
     public boolean equals(Object o) {
